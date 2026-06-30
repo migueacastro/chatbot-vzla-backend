@@ -10,22 +10,25 @@ Para que te familiarices con la estructura de archivos, aquí tienes una descrip
 
 ```text
 chatbot-vzla-backend/
-├── .venv/                 # Entorno virtual de Python con las dependencias instaladas.
-├── chatbot/               # La aplicación Django principal que manejará la lógica del chatbot.
-│   ├── migrations/        # Historial de migraciones de base de datos para esta app.
-│   ├── admin.py           # Configuración del panel de administración de Django.
-│   ├── apps.py            # Configuración general de la app "chatbot".
-│   ├── models.py          # Modelos de base de datos (ORMs).
-│   ├── tests.py           # Pruebas unitarias de la app.
-│   └── views.py           # Vistas/Controladores que procesan las peticiones HTTP.
-├── config/                # Carpeta de configuración del proyecto Django global.
-│   ├── settings.py        # Configuración general del proyecto (BD, apps instaladas, middleware, etc.).
-│   ├── urls.py            # Enrutador principal del proyecto (las URLs que Django mapea).
-│   ├── asgi.py            # Configuración para servidores ASGI (esencial para WebSockets/Channels).
-│   └── wsgi.py            # Configuración para servidores WSGI (despliegue tradicional HTTP).
-├── db.sqlite3             # Base de datos SQLite local para desarrollo rápido.
-├── manage.py              # Script de entrada para comandos de Django.
-└── LICENSE                # Licencia del proyecto.
+├── docker-compose.yml     # Configuración de los servicios Docker (web, etc.)
+├── README.md              # Documentación del proyecto
+├── LICENSE                # Licencia del proyecto
+└── api/                   # Contiene todo el proyecto de Django
+    ├── .venv/             # Entorno virtual de Python con dependencias instaladas
+    ├── Dockerfile         # Receta para construir la imagen de Docker
+    ├── requirements.txt   # Dependencias de Python del proyecto
+    ├── db.sqlite3         # Base de datos SQLite local para desarrollo rápido
+    ├── manage.py          # Script de entrada para comandos de Django
+    ├── config/            # Carpeta de configuración del proyecto Django global
+    │   ├── settings.py    # Configuración general (BD, apps instaladas, middleware)
+    │   ├── urls.py        # Enrutador principal del proyecto
+    │   ├── asgi.py        # Configuración para servidores ASGI (WebSockets/Channels)
+    │   └── wsgi.py        # Configuración para servidores WSGI
+    └── chatbot/           # La aplicación Django principal para la lógica del bot
+        ├── migrations/    # Historial de migraciones de base de datos para esta app
+        ├── admin.py       # Configuración del panel de administración de Django
+        ├── models.py      # Modelos de base de datos (ORMs)
+        └── views.py       # Vistas/Controladores que procesan las peticiones HTTP
 ```
 
 ---
@@ -157,3 +160,30 @@ Ahora, al acceder a `http://127.0.0.1:8000/api/history/` verás el listado de me
 ## ⚡ Conexión con WebSockets (Django Channels)
 Dado que el proyecto incluye `channels`, eventualmente configuraremos conexiones WebSockets para chat en tiempo real en lugar de polling HTTP.
 - Toda la configuración de enrutamiento asíncrono se realiza configurando `config/asgi.py` y creando archivos de tipo `consumers.py` (los equivalentes asíncronos a las `views.py` clásicas).
+
+---
+
+## 🐳 Docker (Recomendado)
+
+Si prefieres no lidiar con entornos virtuales y dependencias locales, el proyecto está completamente dockerizado. Solo necesitas tener instalado **Docker** y **Docker Compose**.
+
+### 1. Levantar el Proyecto con Docker
+Abre tu terminal en la carpeta del proyecto y ejecuta:
+```bash
+docker compose up --build
+```
+Esto construirá la imagen, instalará las dependencias y arrancará el servidor. Podrás acceder a `http://127.0.0.1:8000/`.
+
+### 2. Ejecutar Comandos de Django en Docker
+Para correr comandos como las migraciones o crear superusuarios dentro del contenedor, usa `docker compose exec`:
+
+- **Aplicar Migraciones:**
+  ```bash
+  docker compose exec web python manage.py migrate
+  ```
+- **Crear Superusuario:**
+  ```bash
+  docker compose exec web python manage.py createsuperuser
+  ```
+
+*(Nota: Como estamos usando volúmenes, cualquier cambio que hagas en tu código local se reflejará automáticamente dentro del contenedor sin necesidad de reconstruir la imagen, gracias al recargo automático de Django).*

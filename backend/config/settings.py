@@ -37,6 +37,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     
     # Third party apps
     'rest_framework',
+    'channels',
 
     # Local apps
     'core',
@@ -54,6 +56,9 @@ INSTALLED_APPS = [
     'scraper',
     'subjects',
 ]
+
+ASGI_APPLICATION = 'config.asgi.application'
+
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
@@ -140,4 +145,12 @@ STATIC_URL = 'static/'
 
 # Custom User Model
 AUTH_USER_MODEL = 'core.User'
+
+# Channels Channel Layers (In-Memory for development)
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
+
 

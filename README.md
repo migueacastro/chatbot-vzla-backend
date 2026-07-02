@@ -30,6 +30,9 @@ chatbot-vzla-backend/
     │   ├── apps.py        # Configuración de la aplicación
     │   ├── models.py      # Modelos de base de datos
     │   ├── serializers.py # Serializadores (DRF) para comunicación
+    │   ├── services/      # Servicios de lógica de negocio de comunicación
+    │   │   ├── __init__.py
+    │   │   └── chat_service.py # Lógica de mensajería y canales
     │   ├── tests.py       # Pruebas unitarias
     │   └── views.py       # Vistas de la aplicación
     ├── core/              # App Django principal / utilidades del núcleo

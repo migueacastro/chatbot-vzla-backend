@@ -11,4 +11,12 @@ services:
       - "8000:8000"
     environment:
       - DEBUG=1
-      # Aquí puedes añadir más variables de entorno en el futuro
+      - REDIS_URL=redis://redis:6379/1
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+

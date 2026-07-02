@@ -146,11 +146,17 @@ STATIC_URL = 'static/'
 # Custom User Model
 AUTH_USER_MODEL = 'core.User'
 
-# Channels Channel Layers (In-Memory for development)
+# Channels Channel Layers (using RedisChannelLayer)
+REDIS_URL = os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379/1')
+
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [REDIS_URL],
+        },
     },
 }
+
 
 

@@ -1,14 +1,22 @@
 version: '3.8'
 
 services:
-  web:
-    build: ./api
+  backend:
+    build: ./backend
     # Se sobrescribe el comando por si en el futuro se quiere cambiar (ej. para usar daphne/gunicorn)
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./api:/app
+      - ./backend:/app
     ports:
       - "8000:8000"
     environment:
       - DEBUG=1
-      # Aquí puedes añadir más variables de entorno en el futuro
+      - REDIS_URL=redis://redis:6379/1
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+

@@ -34,7 +34,8 @@ chatbot-vzla-backend/
     │   │   ├── __init__.py
     │   │   └── chat_service.py # Lógica de mensajería y canales
     │   ├── tests.py       # Pruebas unitarias
-    │   └── views.py       # Vistas de la aplicación
+    │   ├── urls.py        # Enrutamiento de la aplicación (webhook)
+    │   └── views.py       # Vistas de la aplicación (ej. TwilioWebhookView)
     ├── core/              # App Django principal / utilidades del núcleo
     │   ├── migrations/    # Historial de migraciones
     │   ├── admin.py       # Panel de administración

@@ -13,8 +13,8 @@ chatbot-vzla-backend/
 ├── docker-compose.yml     # Configuración de los servicios Docker (web, etc.)
 ├── README.md              # Documentación del proyecto
 ├── LICENSE                # Licencia del proyecto
-└── api/                   # Contiene todo el proyecto de Django
-    ├── .venv/             # Entorno virtual de Python con dependencias instaladas
+├── .venv/                 # Entorno virtual de Python con dependencias instaladas
+└── backend/               # Contiene todo el proyecto de Django
     ├── Dockerfile         # Receta para construir la imagen de Docker
     ├── requirements.txt   # Dependencias de Python del proyecto
     ├── db.sqlite3         # Base de datos SQLite local para desarrollo rápido
@@ -24,11 +24,46 @@ chatbot-vzla-backend/
     │   ├── urls.py        # Enrutador principal del proyecto
     │   ├── asgi.py        # Configuración para servidores ASGI (WebSockets/Channels)
     │   └── wsgi.py        # Configuración para servidores WSGI
-    └── chatbot/           # La aplicación Django principal para la lógica del bot
-        ├── migrations/    # Historial de migraciones de base de datos para esta app
-        ├── admin.py       # Configuración del panel de administración de Django
-        ├── models.py      # Modelos de base de datos (ORMs)
-        └── views.py       # Vistas/Controladores que procesan las peticiones HTTP
+    ├── communications/    # App Django para comunicación (ej. WebSockets)
+    │   ├── migrations/    # Historial de migraciones
+    │   ├── admin.py       # Panel de administración
+    │   ├── apps.py        # Configuración de la aplicación
+    │   ├── models.py      # Modelos de base de datos
+    │   ├── serializers.py # Serializadores (DRF) para comunicación
+    │   ├── tests.py       # Pruebas unitarias
+    │   └── views.py       # Vistas de la aplicación
+    ├── core/              # App Django principal / utilidades del núcleo
+    │   ├── migrations/    # Historial de migraciones
+    │   ├── admin.py       # Panel de administración
+    │   ├── apps.py        # Configuración de la aplicación
+    │   ├── models.py      # Modelos de base de datos
+    │   ├── serializers.py # Serializadores (DRF) para el core
+    │   ├── tests.py       # Pruebas unitarias
+    │   └── views.py       # Vistas de la aplicación
+    ├── rag/               # App Django para RAG (Retrieval-Augmented Generation)
+    │   ├── migrations/    # Historial de migraciones
+    │   ├── admin.py       # Panel de administración
+    │   ├── apps.py        # Configuración de la aplicación
+    │   ├── models.py      # Modelos de base de datos
+    │   ├── serializers.py # Serializadores (DRF) para RAG
+    │   ├── tests.py       # Pruebas unitarias
+    │   └── views.py       # Vistas de la aplicación
+    ├── scraper/           # App Django para extracción de fuentes (Hospitales, Sheets, OSINT)
+    │   ├── migrations/    # Historial de migraciones
+    │   ├── admin.py       # Panel de administración
+    │   ├── apps.py        # Configuración de la aplicación
+    │   ├── models.py      # Modelos: Source, Investigation, SourceResult
+    │   ├── serializers.py # Serializadores (DRF) para scraper
+    │   ├── tests.py       # Pruebas unitarias
+    │   └── views.py       # Vistas de la aplicación
+    └── subjects/          # App Django para perfiles de personas buscadas (sujetos)
+        ├── migrations/    # Historial de migraciones
+        ├── admin.py       # Panel de administración
+        ├── apps.py        # Configuración de la aplicación
+        ├── models.py      # Modelos: MissingPerson, Alias, Relative, LocationHistory
+        ├── serializers.py # Serializadores (DRF) para subjects
+        ├── tests.py       # Pruebas unitarias
+        └── views.py       # Vistas de la aplicación
 ```
 
 ---

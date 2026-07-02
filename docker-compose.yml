@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  web:
+  backend:
     build: ./backend
     # Se sobrescribe el comando por si en el futuro se quiere cambiar (ej. para usar daphne/gunicorn)
     command: python manage.py runserver 0.0.0.0:8000

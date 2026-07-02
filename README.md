@@ -218,11 +218,11 @@ Para correr comandos como las migraciones o crear superusuarios dentro del conte
 
 - **Aplicar Migraciones:**
   ```bash
-  docker compose exec web python manage.py migrate
+  docker compose exec backend python manage.py migrate
   ```
 - **Crear Superusuario:**
   ```bash
-  docker compose exec web python manage.py createsuperuser
+  docker compose exec backend python manage.py createsuperuser
   ```
 
 *(Nota: Como estamos usando volúmenes, cualquier cambio que hagas en tu código local se reflejará automáticamente dentro del contenedor sin necesidad de reconstruir la imagen, gracias al recargo automático de Django).*
